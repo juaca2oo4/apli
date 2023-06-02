@@ -72,8 +72,6 @@ public class Controller implements Initializable {
                 dselect();
             } else if (addEdgeSBTN.isSelected()) {
                 // HelloApplication.hideWindow((Stage) pane.getScene().getWindow());
-                HelloApplication.showWindow("addEdge");
-                drawVerticesAndEdges();
 
             } else if (deleteNodeTBTN.isSelected()) {
                 // Aquí puedes implementar la lógica para eliminar un nodo
@@ -94,6 +92,8 @@ public class Controller implements Initializable {
     }
 
     public void addEdge(ActionEvent actionEvent) {
+        HelloApplication.showWindow("addEdge");
+        drawVerticesAndEdges();
     }
 
     public void editEdge(ActionEvent actionEvent) {

@@ -32,30 +32,28 @@ public class Graph<V> {
         }
         return null;
     }
-    public void addVertex(Vertex<V> vertice) {
-        if(vertices.contains(vertice)){
+    public void addVertex(Vertex<V> vertex) {
+        if(vertices.contains(vertex)){
             return;
         }
-        if(vertice!=null){
-            vertices.add(vertice);
+        if(vertex!=null){
+            vertices.add(vertex);
         }
     }
 
-
-    public void addEdge(Vertex<V> origen, Vertex<V> destino, double peso) {
-        if (origen != null && destino != null) {
-            for (int i = 0; i < origen.getAdyacentes().size(); i++) {
-                Map.Entry<Vertex<V>,Double> entry = (Map.Entry<Vertex<V>,Double>) origen.getAdyacentes().get(i);
+    public void addEdge(Vertex<V> source, Vertex<V> destination, double peso) {
+        if (source != null && destination != null) {
+            for (int i = 0; i < source.getAdyacentes().size(); i++) {
+                Map.Entry<Vertex<V>,Double> entry = (Map.Entry<Vertex<V>,Double>) source.getAdyacentes().get(i);
                 Vertex<V> v = entry.getKey();
-                if (v.equals(destino)) {
+                if (v.equals(destination)) {
                     return;
                 }
             }
-            origen.getAdyacentes().add(new AbstractMap.SimpleEntry<>(destino, peso));
-            destino.getAdyacentes().add(new AbstractMap.SimpleEntry<>(origen, peso));
+            source.getAdyacentes().add(new AbstractMap.SimpleEntry<>(destination, peso));
+            destination.getAdyacentes().add(new AbstractMap.SimpleEntry<>(source, peso));
         }
     }
-
 
     public boolean remEdge(Vertex<V> source, Vertex<V> destination) {
         // Verificar si los vértices existen en el grafo
@@ -100,73 +98,8 @@ public class Graph<V> {
         vertices.remove(vertex);
         return true;
     }
-
-    public void bfs(Vertex<V> v) {
-        if(vertices.size()>0){
-            v.setC(Colors.WHITE);
-            v.setDistance(0);
-            v.setParent(null);
-            bfsinner(v);
-        }
-        //String msg="";
-        //msg=createtree(v);
-        //return msg;
-    }
-    private void bfsinner(Vertex<V> v) {
-        for (Vertex<V> q: vertices) {
-            q.setDistance(0);
-            q.setC(Colors.WHITE);
-            q.setParent(null);
-        }
-        v.setC(Colors.GREY);
-        Queue<Vertex<V>> queue = new LinkedList<>();
-        queue.add(v);
-        while (!queue.isEmpty()) {
-            Vertex<V> u = queue.poll();
-            for (Map.Entry<Vertex<V>,Double> entry : u.getAdyacentes()) {
-                Vertex<V> adj = entry.getKey();
-                if (adj.getC() == Colors.WHITE) {
-                    adj.setC(Colors.GREY);
-                    adj.setDistance(u.getDistance() + 1);
-                    adj.setParent(u);
-                    queue.add(adj);
-                }
-            }
-            u.setC(Colors.BLACK);
-        }
-    }
-
-
-    public void dfs(){
-        if(vertices.size()>0){
-            for (Vertex<V> v:vertices) {
-                v.setC(Colors.WHITE);
-                v.setParent(null);
-            }
-            time=0;
-            for (Vertex<V> v : vertices) {
-                if (v.getC() == Colors.WHITE) {
-                    dfs(v,time);
-                }
-            }
-        }
-    }
-    private void dfs(Vertex<V> v,int t){
-        time+=1;
-        v.setDistance(t);
-        v.setC(Colors.GREY);
-        for (Map.Entry<Vertex<V>,Double> u : v.getAdyacentes()) {
-            if (u.getKey().getC()==Colors.WHITE) {
-                u.getKey().setParent(v);
-                dfs(u.getKey(),t);
-            }
-        }
-        v.setC(Colors.BLACK);
-        time +=1;
-        v.setDistancefinal(time);
-    }
-
-    public Graph<V> AdjustedWeights(Graph<V> g, double amountData) {
+    public Graph<V> AdjustedWeights(Graph<V> graph, double amountData) {
+        Graph<V> g = graph;
         // Iterate over each vertex in the original graph
         for (Vertex<V> vertex : g.getVertices()) {
             // Iterate over each adjacent vertex and adjust the weight
@@ -233,7 +166,6 @@ public class Graph<V> {
         }
         return shortestPath;
     }
-
 
     public double[][] floydL() {
         int v = vertices.size();
