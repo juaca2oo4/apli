@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="217.0" prefWidth="226.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.servermanagement.controller.AddConnectionController">
+   <children>
+      <VBox prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <Label text="Server 1">
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin></Label>
+
+            <TextField fx:id="originServer" alignment="CENTER" prefHeight="10" prefWidth="250">
+               <padding>
+                  <Insets left="20.0" right="20.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+            </TextField>
+            <Label text="Server 2">
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin></Label>
+            <TextField fx:id="goalServer" alignment="CENTER" prefHeight="10" prefWidth="250">
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin></TextField>
+            <Label text="Weight">
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin></Label>
+            <TextField fx:id="weight" alignment="CENTER" prefHeight="10" prefWidth="250">
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin></TextField>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#onAddConnection" text="Confirm" />
+                  <Button mnemonicParsing="false" onAction="#onClose" text="Close" />
+               </children>
+            </HBox>
+         </children></VBox>
+   </children>
+</AnchorPane>

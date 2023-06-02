@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" prefHeight="200.0" prefWidth="400.0" spacing="20.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.servermanagement.controller.MainController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+   <Canvas height="200.0" width="400.0" fx:id="graphDisplay"/>
+
+
+    <HBox alignment="BOTTOM_CENTER" prefHeight="0.0" prefWidth="200.0" spacing="10">
+        <children>
+            <Button fx:id="addS" mnemonicParsing="false" onAction="#onAddServer" text="Add Server" />
+            <Button fx:id="remS" mnemonicParsing="false" onAction="#onRemoveServer" text="Remove Server" />
+            <Button fx:id="addC" mnemonicParsing="false" onAction="#onAddConnection" text="Add Connection" />
+            <Button fx:id="remC" mnemonicParsing="false" onAction="#onRemoveConnection" text="Remove Connection" />
+        </children>
+    </HBox>
+    <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" text="Check Data Transfer" fx:id="checkDT" onAction="#onCheckDataTransfer"/>
+</VBox>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="200" prefWidth="200" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.servermanagement.controller.CheckDataTransferController">
+   <children>
+      <VBox prefHeight="200" prefWidth="200">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="100" >
+               <children>
+                  <Label alignment="CENTER" text="PATH:" />
+                  <Label fx:id="path" alignment="CENTER" text="" />
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="80" >
+               <children>
+                  <Label  alignment="CENTER" text="SPEED:" />
+                  <Label fx:id="speed" alignment="CENTER" text="" />
+               </children>
+            </HBox>
+            <Label alignment="CENTER" text="Origin Server" />
+            <TextField fx:id="originServer" />
+            <Label alignment="CENTER" text="Goal Server" />
+            <TextField fx:id="goalServer" />
+            <Label alignment="CENTER" text="Amount of Data" />
+            <TextField fx:id="amountData" />
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="100" spacing="10">
+               <children>
+                  <Button fx:id="confirm" mnemonicParsing="false" onAction="#onCheckDataTransfer" text="Confirm" />
+                  <Button mnemonicParsing="false" onAction="#onClose" text="Close" />
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets left="10.0" right="10.0" />
+         </padding></VBox>
+   </children>
+</AnchorPane>
