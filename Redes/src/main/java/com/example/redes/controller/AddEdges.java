@@ -1,5 +1,7 @@
-package com.example.redes;
+package com.example.redes.controller;
 
+import com.example.redes.model.Graph;
+import com.example.redes.model.Vertex;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;

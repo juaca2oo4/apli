@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="611.0" prefWidth="834.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.redes.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="611.0" prefWidth="834.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.redes.controller.Controller">
    <children>
       <BorderPane prefHeight="569.0" prefWidth="842.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -59,7 +59,7 @@
                               <Insets left="10.0" />
                            </HBox.margin>
                         </ToggleButton>
-                        <ToggleButton fx:id="dijkstraBTN" mnemonicParsing="false" onAction="#dijkstraA" style="-fx-background-color: #319AD6; -fx-background-radius: 10; -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1),10.0,0.0,0.0,10.0);" text="Minimum path" textFill="WHITE">
+                        <ToggleButton fx:id="dijkstraBTN" mnemonicParsing="false" onAction="#CheckDataTransfer" style="-fx-background-color: #319AD6; -fx-background-radius: 10; -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1),10.0,0.0,0.0,10.0);" text="Minimum path" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>

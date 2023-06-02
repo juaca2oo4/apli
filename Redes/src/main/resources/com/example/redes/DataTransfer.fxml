@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="400.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.redes.controller.CheckDataTransfer">
+   <children>
+      <BorderPane layoutX="113.0" layoutY="72.0" prefHeight="300.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="300.0" prefWidth="299.0" style="-fx-background-color: #319AD6; -fx-background-radius: 27;" BorderPane.alignment="CENTER">
+                     <VBox.margin>
+                        <Insets left="20.0" right="20.0" />
+                     </VBox.margin>
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="274.0" prefWidth="220.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 27;">
+                           <children>
+                              <Label fx:id="label1" text="Data Transfer" textFill="#6cc2eb">
+                                 <font>
+                                    <Font name="Leelawadee UI Bold" size="28.0" />
+                                 </font>
+                              </Label>
+                              <HBox prefHeight="39.0" prefWidth="284.0">
+                                 <children>
+                                    <Label alignment="CENTER" text="PATH:" textFill="#868686" />
+                                    <Label fx:id="path" alignment="CENTER" text="" textFill="#868686" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox prefHeight="100.0" prefWidth="80">
+                                 <children>
+                                    <Label alignment="CENTER" text="SPEED:" textFill="#868686" />
+                                    <Label fx:id="speed" alignment="CENTER" text="" textFill="#868686" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Label alignment="CENTER" text="Origin Server" textFill="#868686" />
+                                    <TextField fx:id="originServer" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </VBox>
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Label alignment="CENTER" text="Goal Server" textFill="#868686" />
+                                    <TextField fx:id="goalServer" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </VBox>
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Label alignment="CENTER" text="Amount of Data" textFill="#868686" />
+                                    <TextField fx:id="amountData" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </VBox>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10">
+                                 <children>
+                                    <Button fx:id="confirm" mnemonicParsing="false" text="Confirm" textFill="#868686" onAction="#onCheckDataTransfer"/>
+                                    <Button mnemonicParsing="false" text="Close" textFill="#868686" onAction="#onClose"/>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children></VBox>
+               </children>
+               <padding>
+                  <Insets left="10.0" right="10.0" />
+               </padding>
+            </VBox>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

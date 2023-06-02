@@ -1,29 +1,22 @@
-package com.example.redes;
+package com.example.redes.controller;
 
-import javafx.animation.PathTransition;
+import com.example.redes.MainApplication;
+import com.example.redes.model.Graph;
+import com.example.redes.model.Vertex;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.Cursor;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import javafx.util.Duration;
 
-import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.Stack;
 
 
 public class Controller implements Initializable {
@@ -92,7 +85,7 @@ public class Controller implements Initializable {
     }
 
     public void addEdge(ActionEvent actionEvent) {
-        HelloApplication.showWindow("addEdge");
+        MainApplication.showWindow("addEdge");
         drawVerticesAndEdges();
     }
 
@@ -102,7 +95,10 @@ public class Controller implements Initializable {
     public void deleteEdge(ActionEvent actionEvent) {
     }
 
-    public void dijkstraA(ActionEvent actionEvent) {
+
+    //Este es el Dijkstra
+    public void CheckDataTransfer(ActionEvent actionEvent) {
+        MainApplication.showWindow("DataTransfer");
     }
 
     public void dselect() {

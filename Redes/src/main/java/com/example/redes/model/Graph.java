@@ -1,6 +1,4 @@
-package com.example.redes;
-
-import com.example.redes.Vertex;
+package com.example.redes.model;
 
 import java.util.*;
 
