@@ -41,12 +41,12 @@ public class CheckDataTransfer{
         String amountD = amountData.getText();
         double amount = Double.parseDouble(amountD);
 
-        Graph g = Graph.getInstance();
+        Graph<String> g =  Graph.getInstance();
 
-        g.AdjustedWeights(g,amount);
+        g=g.AdjustedWeights(amount);
 
-        Vertex v1 = g.findVertex(origin);
-        Vertex v2 = g.findVertex(goal);
+        Vertex<String> v1 = g.findVertex(origin);
+        Vertex<String> v2 = g.findVertex(goal);
 
 
        ArrayList<Vertex<String>> copy = g.Dijsktra(v1, v2);

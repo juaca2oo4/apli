@@ -96,18 +96,24 @@ public class Graph<V> {
         vertices.remove(vertex);
         return true;
     }
-    public Graph<V> AdjustedWeights(Graph<V> graph, double amountData) {
-        Graph<V> g = graph;
-        // Iterate over each vertex in the original graph
-        for (Vertex<V> vertex : g.getVertices()) {
-            // Iterate over each adjacent vertex and adjust the weight
+
+    public Graph<V> AdjustedWeights(double amountData) {
+        Graph<V> g = new Graph<V>();
+
+        // Create a copy of the vertices in the original graph
+        for (Vertex<V> vertex : vertices) {
+            g.addVertex(new Vertex<>(vertex.getDato(),vertex.getX(),vertex.getY()));
+        }
+
+        // Adjust the weights in the copied graph
+        for (Vertex<V> vertex : vertices) {
+            Vertex<V> copiedVertex = g.findVertex((String) vertex.getDato());
+
             for (Map.Entry<Vertex<V>, Double> entry : vertex.getAdyacentes()) {
+                Vertex<V> adjacentVertex = entry.getKey();
                 double originalWeight = entry.getValue();
-
-                // Calculate the adjusted weight
                 double adjustedWeight = amountData / originalWeight;
-
-                entry.setValue(adjustedWeight);
+                copiedVertex.getAdyacentes().add(new AbstractMap.SimpleEntry<>(g.findVertex((String) adjacentVertex.getDato()), adjustedWeight));
             }
         }
 
