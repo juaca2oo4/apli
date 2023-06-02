@@ -90,6 +90,8 @@ public class Controller implements Initializable {
     }
 
     public void editEdge(ActionEvent actionEvent) {
+        drawVerticesAndEdges();
+        dselect();
     }
 
     public void deleteEdge(ActionEvent actionEvent) {
