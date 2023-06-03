@@ -67,7 +67,8 @@ public class AddEdges {
                 alert.showAndWait();
             } else {
                 double weight = calculateWeight(v1, v2);
-                Graph.getInstance().addEdge(v1, v2, weight);
+                double weightFinal= Math.min(v1.getSpeed(),v2.getSpeed())*(1-(weight/299792));
+                Graph.getInstance().addEdge(v1, v2, weightFinal);
             }
         }
 

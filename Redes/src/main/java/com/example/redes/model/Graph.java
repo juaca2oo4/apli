@@ -110,7 +110,7 @@ public class Graph<V> {
 
         // Create a copy of the vertices in the original graph
         for (Vertex<V> vertex : vertices) {
-            g.addVertex(new Vertex<>(vertex.getDato(),vertex.getX(),vertex.getY()));
+            g.addVertex(new Vertex<>(vertex.getDato(),vertex.getX(),vertex.getY(),vertex.getSpeed()));
         }
 
         // Adjust the weights in the copied graph

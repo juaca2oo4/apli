@@ -4,6 +4,7 @@ import com.example.redes.MainApplication;
 import com.example.redes.model.Graph;
 import com.example.redes.model.Vertex;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
@@ -13,6 +14,8 @@ import java.nio.file.Path;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -24,6 +27,8 @@ import javafx.scene.text.Text;
 
 import java.lang.reflect.Type;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -39,6 +44,7 @@ public class Controller implements Initializable {
     // private Gra graph = Graph.getInstance();
 
     private final Graph<String> graph =Graph.getInstance();
+    public TextField speed;
     private int nodesCounter = 1;
 
 
@@ -66,14 +72,24 @@ public class Controller implements Initializable {
     void showGraph() {
         pane.setOnMouseClicked(mouseEvent -> {
             if (addNodeTBTN.isSelected()) {
-                double x = mouseEvent.getX();
-                double y = mouseEvent.getY();
+                if(speed.getText().isEmpty()){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error!");
+                    alert.setHeaderText("Please complete the 'From node' field.");
+                    alert.showAndWait();
+                    dselect();
 
-                Vertex<String> newVertex = new Vertex<>(String.valueOf(nodesCounter), x, y);
-                graph.addVertex(newVertex);
-                nodesCounter++;
-                drawVerticesAndEdges();
-                dselect();
+                }else{
+                    double x = mouseEvent.getX();
+                    double y = mouseEvent.getY();
+
+                    Vertex<String> newVertex = new Vertex<>(String.valueOf(nodesCounter), x, y,Double.parseDouble(speed.getText()));
+                    graph.addVertex(newVertex);
+                    nodesCounter++;
+                    drawVerticesAndEdges();
+                    dselect();
+                }
+
             } else if (addEdgeSBTN.isSelected()) {
                 // HelloApplication.hideWindow((Stage) pane.getScene().getWindow());
 
@@ -111,12 +127,14 @@ public class Controller implements Initializable {
 
     public void deleteEdge(ActionEvent actionEvent) {
         MainApplication.showWindow("removeConnection");
+        dselect();
     }
 
 
     //Este es el Dijkstra
     public void CheckDataTransfer(ActionEvent actionEvent) {
         MainApplication.showWindow("DataTransfer");
+        dselect();
     }
 
     public void dselect() {
@@ -127,11 +145,15 @@ public class Controller implements Initializable {
     }
 
     public void saveGraph(){
-        saveGraphToJson("savedGraph.json");
+        writeDataVertex("src\\main\\java\\com\\example\\redes\\Json\\dataVertex.txt");
+        writeDataEdges("src\\main\\java\\com\\example\\redes\\Json\\dataEdges.txt");
+        dselect();
     }
 
     public void loadGraph(){
-        loadGraphFromJson("savedGraph.json");
+        addDataVertex("src\\main\\java\\com\\example\\redes\\Json\\dataVertex.txt");
+        addDataEdgeList("src\\main\\java\\com\\example\\redes\\Json\\dataEdges.txt");
+        dselect();
     }
     private void drawVerticesAndEdges() {
         pane.getChildren().clear();
@@ -171,60 +193,86 @@ public class Controller implements Initializable {
         }
     }
 
-    public void saveGraphToJson(String filePath) {
-        Gson gson = new Gson();
-        String folderPath = "src/main/java/com/example/redes/Json/";
 
+    public void addDataVertex(String archivo) {
+        File file = new File(archivo);
         try {
-            Path folder = Path.of("").toAbsolutePath().resolve(folderPath);
-            if (!Files.exists(folder)) {
-                Files.createDirectories(folder);
+            FileInputStream fis = new FileInputStream(file);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] atributs = line.split(" ");
+                Vertex<String>  vertex= new Vertex<>(atributs[0],Double.parseDouble(atributs[1]),Double.parseDouble(atributs[2]),Double.parseDouble(atributs[3]));
+                graph.addVertex(vertex);
+            }
+            fis.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void addDataEdgeList(String archivo) {
+        File file = new File(archivo);
+        try {
+            FileInputStream fis = new FileInputStream(file);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] atributs = line.split(",");
+                Vertex<String>  vertex1= graph.findVertex(atributs[0]);
+                Vertex<String>  vertex2= graph.findVertex(atributs[1]);
+
+                graph.addEdge(vertex1,vertex2,Double.parseDouble(atributs[2]));
+
+            }
+            fis.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void writeDataVertex(String archivo) {
+        File file = new File(archivo);
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fos));
+
+            for (Vertex<String> vertex : graph.getVertices()) {
+                String line = vertex.getDato() + " " + vertex.getX() + " " + vertex.getY() + " " + vertex.getSpeed();
+                writer.write(line);
+                writer.newLine();
             }
 
-            Path jsonFilePath = folder.resolve(filePath);
-            if (!Files.exists(jsonFilePath)) {
-                Files.createFile(jsonFilePath);
-            }
-
-            FileWriter writer = new FileWriter(jsonFilePath.toFile());
-            String json = gson.toJson(Graph.getInstance());
-            writer.write(json);
             writer.close();
-
-            System.out.println("Graph saved to: " + jsonFilePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /*public void savedGraphToJson(String filePath) {
-        Gson gson = new Gson();
-        String json = gson.toJson(Graph.getInstance().getVertices());
-
-        try {
-            FileOutputStream fos = new FileOutputStream(new File(filePath));
-            fos.write(json.getBytes(StandardCharsets.UTF_8));
             fos.close();
-            System.out.println("Vertex information saved to: " + filePath);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    
-     */
-    public Graph<String> loadGraphFromJson(String filePath) {
-        Gson gson = new Gson();
-        File dataDirectory = new File("src/main/java/com/example/redes/Json/");
-        File fileInfo = new File(dataDirectory, filePath);
-        try (FileReader reader = new FileReader(fileInfo)) {
-            Type graphType = new TypeToken<Graph<String>>() {}.getType();
-            return gson.fromJson(reader, graphType);
+    public void writeDataEdges(String archivo) {
+        File file = new File(archivo);
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fos));
+
+            for (Vertex<String> vertex : graph.getVertices()) {
+                for (Map.Entry<Vertex<String>, Double> entry : vertex.getAdyacentes()) {
+                    Vertex<String> neighborVertex = entry.getKey();
+                    Double weight = entry.getValue();
+
+                    String line = vertex.getDato() + " " + neighborVertex.getDato() + " " + weight;
+                    writer.write(line);
+                    writer.newLine();
+                }
+            }
+
+            writer.close();
+            fos.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
     }
+
+
+
 
 }
