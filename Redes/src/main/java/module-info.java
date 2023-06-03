@@ -1,6 +1,7 @@
 module com.example.redes {
     requires javafx.controls;
     requires javafx.fxml;
+    requires com.google.gson;
 
 
     opens com.example.redes to javafx.fxml;

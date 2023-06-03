@@ -67,6 +67,22 @@
                               <Insets left="10.0" />
                            </HBox.margin>
                         </ToggleButton>
+                        <ToggleButton fx:id="saveBTN" mnemonicParsing="false" onAction="#saveGraph" prefHeight="30.0" prefWidth="86.0" style="-fx-background-color: #319AD6; -fx-background-radius: 10; -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1),10.0,0.0,0.0,10.0);" text="Save" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </ToggleButton>
+                        <ToggleButton fx:id="loadBTN" mnemonicParsing="false" onAction="#loadGraph" prefHeight="30.0" prefWidth="86.0" style="-fx-background-color: #319AD6; -fx-background-radius: 10; -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1),10.0,0.0,0.0,10.0);" text="Load" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </ToggleButton>
                      </children>
                   </HBox>
                </children>

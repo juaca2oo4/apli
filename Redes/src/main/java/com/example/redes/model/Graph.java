@@ -1,6 +1,14 @@
 package com.example.redes.model;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.*;
+import java.io.*;
 
 public class Graph<V> {
     private ArrayList<Vertex<V>> vertices=new ArrayList<>();
@@ -207,6 +215,5 @@ public class Graph<V> {
         }
         return distances;
     }
-
 
 }

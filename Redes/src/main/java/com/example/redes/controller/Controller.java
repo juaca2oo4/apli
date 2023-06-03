@@ -3,6 +3,14 @@ package com.example.redes.controller;
 import com.example.redes.MainApplication;
 import com.example.redes.model.Graph;
 import com.example.redes.model.Vertex;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ToggleButton;
@@ -14,6 +22,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
+import java.lang.reflect.Type;
 import java.net.URL;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -43,6 +52,8 @@ public class Controller implements Initializable {
     public ToggleButton addEdgeSBTN;
     public ToggleButton deleteEdgeTBTN;
     public ToggleButton dijkstraBTN;
+    public ToggleButton saveBTN;
+    public ToggleButton loadBTN;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -72,6 +83,10 @@ public class Controller implements Initializable {
                 // Aquí puedes implementar la lógica para eliminar una arista
             } else if (dijkstraBTN.isSelected()) {
                 // Aquí puedes implementar la lógica para ejecutar el algoritmo de Dijkstra
+            } else if (saveBTN.isSelected()) {
+                // Aquí puedes implementar la lógica para guardar en json
+            } else if (loadBTN.isSelected()){
+                // Aquí puedes implementar la lógica para load en json
             }
             drawVerticesAndEdges();
         });
@@ -111,6 +126,13 @@ public class Controller implements Initializable {
         }
     }
 
+    public void saveGraph(){
+        saveGraphToJson("savedGraph.json");
+    }
+
+    public void loadGraph(){
+        loadGraphFromJson("savedGraph.json");
+    }
     private void drawVerticesAndEdges() {
         pane.getChildren().clear();
 
@@ -147,6 +169,62 @@ public class Controller implements Initializable {
                 pane.getChildren().add(edgeLine);
             }
         }
+    }
+
+    public void saveGraphToJson(String filePath) {
+        Gson gson = new Gson();
+        String folderPath = "src/main/java/com/example/redes/Json/";
+
+        try {
+            Path folder = Path.of("").toAbsolutePath().resolve(folderPath);
+            if (!Files.exists(folder)) {
+                Files.createDirectories(folder);
+            }
+
+            Path jsonFilePath = folder.resolve(filePath);
+            if (!Files.exists(jsonFilePath)) {
+                Files.createFile(jsonFilePath);
+            }
+
+            FileWriter writer = new FileWriter(jsonFilePath.toFile());
+            String json = gson.toJson(Graph.getInstance());
+            writer.write(json);
+            writer.close();
+
+            System.out.println("Graph saved to: " + jsonFilePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*public void savedGraphToJson(String filePath) {
+        Gson gson = new Gson();
+        String json = gson.toJson(Graph.getInstance().getVertices());
+
+        try {
+            FileOutputStream fos = new FileOutputStream(new File(filePath));
+            fos.write(json.getBytes(StandardCharsets.UTF_8));
+            fos.close();
+            System.out.println("Vertex information saved to: " + filePath);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+     */
+    public Graph<String> loadGraphFromJson(String filePath) {
+        Gson gson = new Gson();
+        File dataDirectory = new File("src/main/java/com/example/redes/Json/");
+        File fileInfo = new File(dataDirectory, filePath);
+        try (FileReader reader = new FileReader(fileInfo)) {
+            Type graphType = new TypeToken<Graph<String>>() {}.getType();
+            return gson.fromJson(reader, graphType);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }
