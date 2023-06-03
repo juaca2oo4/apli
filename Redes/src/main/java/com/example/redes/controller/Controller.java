@@ -95,6 +95,7 @@ public class Controller implements Initializable {
     }
 
     public void deleteEdge(ActionEvent actionEvent) {
+        MainApplication.showWindow("removeConnection");
     }
 
 
