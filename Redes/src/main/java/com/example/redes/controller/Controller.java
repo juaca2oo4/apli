@@ -27,6 +27,7 @@ import javafx.scene.text.Text;
 
 import java.lang.reflect.Type;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -90,25 +91,13 @@ public class Controller implements Initializable {
                     dselect();
                 }
 
-            } else if (addEdgeSBTN.isSelected()) {
-                // HelloApplication.hideWindow((Stage) pane.getScene().getWindow());
-
-            } else if (deleteNodeTBTN.isSelected()) {
-                // Aquí puedes implementar la lógica para eliminar un nodo
-            } else if (deleteEdgeTBTN.isSelected()) {
-                // Aquí puedes implementar la lógica para eliminar una arista
-            } else if (dijkstraBTN.isSelected()) {
-                // Aquí puedes implementar la lógica para ejecutar el algoritmo de Dijkstra
-            } else if (saveBTN.isSelected()) {
-                // Aquí puedes implementar la lógica para guardar en json
-            } else if (loadBTN.isSelected()){
-                // Aquí puedes implementar la lógica para load en json
             }
-            drawVerticesAndEdges();
+
         });
     }
 
     public void addNode(ActionEvent actionEvent) {
+        showGraph();
     }
 
     public void deleteNode(ActionEvent actionEvent) {
@@ -168,7 +157,7 @@ public class Controller implements Initializable {
             pane.getChildren().add(nodeCircle);
 
             Text nodeText = new Text(vertex.getDato());
-            nodeText.setFont(Font.font("Arial", FontWeight.BOLD, 5));
+            nodeText.setFont(Font.font("Arial", FontWeight.BOLD, 10));
             nodeText.setFill(Color.WHITE);
             nodeText.setX(x - 5);
             nodeText.setY(y + 5);
@@ -189,6 +178,23 @@ public class Controller implements Initializable {
                 edgeLine.setStroke(Color.RED);
                 edgeLine.setStrokeWidth(2);
                 pane.getChildren().add(edgeLine);
+                // Calcular las coordenadas medias
+                double midX = (startX + endX) / 2;
+                double midY = (startY + endY) / 2;
+
+                // Obtener el peso del edge
+                double weight = entry.getValue();
+                DecimalFormat decimalFormat = new DecimalFormat("#.##");
+                String roundedNumber = decimalFormat.format(weight);
+
+
+                // Crear el texto con el peso en las coordenadas medias
+                Text edgeText = new Text(roundedNumber);
+                edgeText.setFont(Font.font("Arial", FontWeight.BOLD, 10));
+                edgeText.setFill(Color.BLACK);
+                edgeText.setX(midX - 10);  // Ajusta la posición del texto horizontalmente
+                edgeText.setY(midY);       // Ajusta la posición del texto verticalmente
+                pane.getChildren().add(edgeText);
             }
         }
     }
