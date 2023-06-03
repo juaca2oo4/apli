@@ -86,7 +86,7 @@ public class Controller implements Initializable {
 
     public void addEdge(ActionEvent actionEvent) {
         MainApplication.showWindow("addEdge");
-        drawVerticesAndEdges();
+
     }
 
     public void editEdge(ActionEvent actionEvent) {
