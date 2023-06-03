@@ -21,13 +21,13 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
-   
+
 
 
     public AnchorPane paneAP;
     public ToggleButton editEdgeBTN;
     public Pane pane;
-   // private Gra graph = Graph.getInstance();
+    // private Gra graph = Graph.getInstance();
 
     private final Graph<String> graph =Graph.getInstance();
     private int nodesCounter = 1;

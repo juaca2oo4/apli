@@ -15,27 +15,19 @@
    <children>
       <BorderPane prefHeight="569.0" prefWidth="842.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
-            <HBox prefHeight="75.0" prefWidth="200.0" style="-fx-background-color: #319AD6;" BorderPane.alignment="CENTER">
+            <HBox alignment="TOP_CENTER" prefHeight="75.0" prefWidth="200.0" style="-fx-background-color: #319AD6;" BorderPane.alignment="CENTER">
                <children>
-                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="650.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1),10.0,0.0,0.0,10.0);">
+                  <HBox alignment="CENTER" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1),10.0,0.0,0.0,10.0);">
                      <HBox.margin>
                         <Insets bottom="15.0" right="15.0" top="15.0" />
                      </HBox.margin>
                      <children>
-                        <ToggleButton fx:id="addNodeTBTN" mnemonicParsing="false" onAction="#addNode" style="-fx-background-color: #319AD6; -fx-background-radius: 10; -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1),10.0,0.0,0.0,10.0);" text="Add Server" textFill="WHITE">
+                        <ToggleButton fx:id="addNodeTBTN" mnemonicParsing="false" onAction="#addNode" prefHeight="30.0" prefWidth="116.0" style="-fx-background-color: #319AD6; -fx-background-radius: 10; -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1),10.0,0.0,0.0,10.0);" text="Add Server" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </ToggleButton>
-                        <ToggleButton fx:id="deleteNodeTBTN" mnemonicParsing="false" onAction="#deleteNode" style="-fx-background-color: #319AD6; -fx-background-radius: 10; -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1),10.0,0.0,0.0,10.0);" text="Delete Server" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin>
-                        </ToggleButton>
-                        <ToggleButton fx:id="addEdgeSBTN" mnemonicParsing="false" onAction="#addEdge" style="-fx-background-color: #319AD6; -fx-background-radius: 10; -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1),10.0,0.0,0.0,10.0);" text="Add Connection" textFill="WHITE">
+                        <ToggleButton fx:id="deleteNodeTBTN" mnemonicParsing="false" onAction="#deleteNode" prefHeight="30.0" prefWidth="137.0" style="-fx-background-color: #319AD6; -fx-background-radius: 10; -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1),10.0,0.0,0.0,10.0);" text="Delete Server" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -43,7 +35,15 @@
                               <Insets left="10.0" />
                            </HBox.margin>
                         </ToggleButton>
-                        <ToggleButton fx:id="editEdgeBTN" mnemonicParsing="false" onAction="#editEdge" style="-fx-background-color: #319AD6; -fx-background-radius: 10; -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1),10.0,0.0,0.0,10.0);" text="Refresh" textFill="WHITE">
+                        <ToggleButton fx:id="addEdgeSBTN" mnemonicParsing="false" onAction="#addEdge" prefHeight="30.0" prefWidth="156.0" style="-fx-background-color: #319AD6; -fx-background-radius: 10; -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1),10.0,0.0,0.0,10.0);" text="Add Connection" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </ToggleButton>
+                        <ToggleButton fx:id="editEdgeBTN" mnemonicParsing="false" onAction="#editEdge" prefHeight="30.0" prefWidth="86.0" style="-fx-background-color: #319AD6; -fx-background-radius: 10; -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1),10.0,0.0,0.0,10.0);" text="Refresh" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>

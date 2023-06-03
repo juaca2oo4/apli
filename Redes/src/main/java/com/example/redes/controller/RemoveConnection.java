@@ -68,6 +68,7 @@ public class RemoveConnection {
             Vertex v1= Graph.getInstance().findVertex(from);
             Vertex v2= Graph.getInstance().findVertex(to);
             Graph.getInstance().remEdge(v1,v2);
+            Graph.getInstance().remEdge(v2,v1);
         }
         fromNodeTF.setText("");
         toNodeTF.setText("");
