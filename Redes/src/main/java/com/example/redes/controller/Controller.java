@@ -78,10 +78,10 @@ public class Controller implements Initializable {
     }
 
     public void addNode(ActionEvent actionEvent) {
-
     }
 
     public void deleteNode(ActionEvent actionEvent) {
+        MainApplication.showWindow("removeServer");
     }
 
     public void addEdge(ActionEvent actionEvent) {
