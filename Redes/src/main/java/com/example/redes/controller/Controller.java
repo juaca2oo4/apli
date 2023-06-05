@@ -99,7 +99,7 @@ public class Controller implements Initializable {
 
     public void addEdge(ActionEvent actionEvent) {
         MainApplication.showWindow("addEdge");
-
+        dselect();
     }
 
     public void editEdge(ActionEvent actionEvent) {
@@ -289,7 +289,8 @@ public class Controller implements Initializable {
     }
 
     public void selectedTraffic(ActionEvent actionEvent) {
-
+        MainApplication.showWindow("STraffic");
+        dselect();
     }
 
 

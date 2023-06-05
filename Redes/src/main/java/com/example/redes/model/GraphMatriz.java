@@ -260,8 +260,26 @@ public class GraphMatriz<T> {
         }
     }
 
+    public void addTraffic(Vertex v1, Vertex v2, double factor){
+        for (int i = 0; i < adjacencyMatrix.length; i++) {
+            for (int j = 0; j < adjacencyMatrix[i].length; j++) {
+                List<Edge<T>> edges = adjacencyMatrix[i][j];
+                if(edges!=null){
+                    for(int k=0; k<edges.size(); k++){
+                        if(edges.get(k).getSource() == v1 || edges.get(k).getSource() == v2){
+                            if(edges.get(k).getDestination() == v1 || edges.get(k).getDestination() == v2){
+                                double originalWeight = edges.get(k).getWeight();
+                                double multipliedWeight = originalWeight * factor;
+                                edges.get(k).setWeight(multipliedWeight);
+                            }
+                        }
+                    }
 
-
+                }
+            }
+        }
+        return;
+    }
 
     public List<Edge<T>>[][] getAdjacencyMatrix() {
         return adjacencyMatrix;

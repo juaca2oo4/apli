@@ -23,10 +23,14 @@ public class STraffic {
     private TextField toNodeTF;
 
     @FXML
+    private TextField traffic;
+
+    @FXML
     void cancelA(ActionEvent event) {
         fromNodeTF.setText("");
         toNodeTF.setText("");
-        Stage currentStage = (Stage) toNodeTF.getScene().getWindow();
+        traffic.setText("");
+        Stage currentStage = (Stage) traffic.getScene().getWindow();
         currentStage.hide();
     }
 
@@ -35,32 +39,15 @@ public class STraffic {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         String from = fromNodeTF.getText();
         String to = toNodeTF.getText();
+        String amount = traffic.getText();
+        Vertex<String> v1 = GraphMatriz.getInstance().searchVertex(from);
+        Vertex<String> v2 = GraphMatriz.getInstance().searchVertex(to);
+        double factor = 1/Double.parseDouble(amount+1);
+        GraphMatriz.getInstance().addTraffic(v1, v2, factor);
 
-        if (from.isEmpty()) {
-            alert.setTitle("Error!");
-            alert.setHeaderText("Please complete the 'From node' field.");
-            alert.showAndWait();
-        } else if (to.isEmpty()) {
-            alert.setTitle("Error!");
-            alert.setHeaderText("Please complete the 'To node' field.");
-            alert.showAndWait();
-        } else {
-            Vertex<String> v1 = GraphMatriz.getInstance().searchVertex(from);
-            Vertex<String> v2 = GraphMatriz.getInstance().searchVertex(to);
+        fromNodeTF.setText(" ");
+        toNodeTF.setText(" ");
+        traffic.setText(" ");
 
-            if (v1 == null) {
-                alert.setTitle("Error!");
-                alert.setHeaderText("Invalid 'From node'. Node not found.");
-                alert.showAndWait();
-            } else if (v2 == null) {
-                alert.setTitle("Error!");
-                alert.setHeaderText("Invalid 'To node'. Node not found.");
-                alert.showAndWait();
-            } else {
-            }
-        }
-
-        fromNodeTF.setText("");
-        toNodeTF.setText("");
     }
 }
