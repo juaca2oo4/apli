@@ -3,10 +3,7 @@ package com.example.redes.model;
 import java.util.*;
 public class Vertex<V>  {
 
-    public ArrayList<Map.Entry<Vertex<V>,Double>> adyacentes;
-
     public V dato;
-    public Colors c;
 
     private double x;
 
@@ -17,12 +14,10 @@ public class Vertex<V>  {
     private int distancefinal;
 
     public Vertex(V dato, double x, double y,double speed) {
-        adyacentes= new ArrayList<>();
         this.x=x;
         this.y=y;
         this.dato = dato;
         this.speed=speed;
-        c= Colors.WHITE;
         distance=0;
     }
 
@@ -47,18 +42,7 @@ public class Vertex<V>  {
     public void setDistance(int distance) {
         this.distance = distance;
     }
-    public Colors getC() {
-        return c;
-    }
-    public void setC(Colors c) {
-        this.c = c;
-    }
-    public ArrayList<Map.Entry<Vertex<V>, Double>> getAdyacentes() {
-        return adyacentes;
-    }
-    public void setAdyacentes(ArrayList<Map.Entry<Vertex<V>, Double>> adyacentes) {
-        this.adyacentes = adyacentes;
-    }
+
     public V getDato() {
         return dato;
     }

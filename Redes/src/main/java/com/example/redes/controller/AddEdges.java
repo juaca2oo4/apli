@@ -1,6 +1,6 @@
 package com.example.redes.controller;
 
-import com.example.redes.model.Graph;
+import com.example.redes.model.GraphMatriz;
 import com.example.redes.model.Vertex;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -54,8 +54,8 @@ public class AddEdges {
             alert.setHeaderText("Please complete the 'To node' field.");
             alert.showAndWait();
         } else {
-            Vertex<String> v1 = Graph.getInstance().findVertex(from);
-            Vertex<String> v2 = Graph.getInstance().findVertex(to);
+            Vertex<String> v1 = GraphMatriz.getInstance().searchVertex(from);
+            Vertex<String> v2 = GraphMatriz.getInstance().searchVertex(to);
 
             if (v1 == null) {
                 alert.setTitle("Error!");
@@ -67,20 +67,42 @@ public class AddEdges {
                 alert.showAndWait();
             } else {
                 double weight = calculateWeight(v1, v2);
+                System.out.println(weight);
                 double weightFinal= Math.min(v1.getSpeed(),v2.getSpeed())*(1-(weight/299792));
-                Graph.getInstance().addEdge(v1, v2, weightFinal);
+                GraphMatriz.getInstance().addEdge(v1, v2, weightFinal);
             }
         }
 
         fromNodeTF.setText("");
         toNodeTF.setText("");
     }
-
+    //8,246 alto
+    //7,244 ancho
     private double calculateWeight(Vertex<String> v1, Vertex<String> v2) {
-        double lat1 = Math.toRadians(v1.getY()); // Coordenada Y representa la latitud
-        double lon1 = Math.toRadians(v1.getX()); // Coordenada X representa la longitud
-        double lat2 = Math.toRadians(v2.getY());
-        double lon2 = Math.toRadians(v2.getX());
+        double imageHeight = 1418.0; // Altura de la imagen en píxeles
+        double imageWidth = 834.0; // Ancho de la imagen en píxeles
+        double mapHeight = 8246.0; // Altura del mapa en kilómetros
+        double mapWidth = 7244.0; // Ancho del mapa en kilómetros
+
+        double scaleHorizontal = mapWidth / imageWidth;
+        double scaleVertical = mapHeight / imageHeight;
+
+        double mapX1 = v1.getX() * scaleHorizontal;
+        double mapY1 = v1.getY() * scaleVertical;
+        double mapX2 = v2.getX() * scaleHorizontal;
+        double mapY2 = v2.getY() * scaleVertical;
+
+        double lat1 = Math.toRadians(mapY1); // Coordenada Y representa la latitud
+        double lon1 = Math.toRadians(mapX1)*-1; // Coordenada X representa la longitud
+        double lat2 = Math.toRadians(mapY2);
+        double lon2 = Math.toRadians(mapX2)*-1;
+
+        if(v1.getY()<240){
+            lat1 =lat1*-1;
+        }
+        if(v2.getY()<240){
+            lat2 =lat2*-1;
+        }
 
         double earthRadius = 6371; // Radio de la Tierra en kilómetros
 
@@ -92,7 +114,6 @@ public class AddEdges {
                 * Math.sin(dlon / 2) * Math.sin(dlon / 2);
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         double distance = earthRadius * c;
-        System.out.println(distance);
         return distance;
     }
 }

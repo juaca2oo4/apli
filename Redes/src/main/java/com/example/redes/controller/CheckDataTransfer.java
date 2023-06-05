@@ -1,6 +1,6 @@
 package com.example.redes.controller;
 
-import com.example.redes.model.Graph;
+import com.example.redes.model.GraphMatriz;
 import com.example.redes.model.Vertex;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CheckDataTransfer{
     @FXML
@@ -41,15 +42,15 @@ public class CheckDataTransfer{
         String amountD = amountData.getText();
         double amount = Double.parseDouble(amountD);
 
-        Graph<String> g =  Graph.getInstance();
+        GraphMatriz<String> g =  GraphMatriz.getInstance();
 
-        g=g.AdjustedWeights(amount);
+        g=g.adjustedWeights(amount);
 
-        Vertex<String> v1 = g.findVertex(origin);
-        Vertex<String> v2 = g.findVertex(goal);
+        Vertex<String> v1 = g.searchVertex(origin);
+        Vertex<String> v2 = g.searchVertex(goal);
 
 
-       ArrayList<Vertex<String>> copy = g.Dijsktra(v1, v2);
+       List<Vertex<String>> copy = g.dijkstra(v1, v2);
 
        String print ="";
        for(int i =0; i<copy.size(); i++){
@@ -81,6 +82,8 @@ public class CheckDataTransfer{
     public void onClose(ActionEvent event) {
         Stage stage = (Stage) originServer.getScene().getWindow();
         stage.close();
+
+
     }
 
 }

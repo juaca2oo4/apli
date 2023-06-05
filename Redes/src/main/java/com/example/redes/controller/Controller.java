@@ -1,16 +1,11 @@
 package com.example.redes.controller;
 
 import com.example.redes.MainApplication;
-import com.example.redes.model.Graph;
+import com.example.redes.model.Edge;
+import com.example.redes.model.GraphMatriz;
 import com.example.redes.model.Vertex;
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -25,10 +20,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
-import java.lang.reflect.Type;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -44,14 +37,12 @@ public class Controller implements Initializable {
     public Pane pane;
     // private Gra graph = Graph.getInstance();
 
-    private final Graph<String> graph =Graph.getInstance();
+    private GraphMatriz<String> graph =GraphMatriz.getInstance();
     public TextField speed;
+    public TextField concurrence;
     private int nodesCounter = 1;
 
 
-    private static class Delta {
-        double x, y;
-    }
 
 
     public ToggleButton addNodeTBTN;
@@ -61,6 +52,8 @@ public class Controller implements Initializable {
     public ToggleButton dijkstraBTN;
     public ToggleButton saveBTN;
     public ToggleButton loadBTN;
+
+    public ToggleButton trafficBTN;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -140,6 +133,7 @@ public class Controller implements Initializable {
     }
 
     public void loadGraph(){
+        graph = new GraphMatriz<>(0);
         addDataVertex("src\\main\\java\\com\\example\\redes\\Json\\dataVertex.txt");
         addDataEdgeList("src\\main\\java\\com\\example\\redes\\Json\\dataEdges.txt");
         dselect();
@@ -165,36 +159,42 @@ public class Controller implements Initializable {
         }
 
         // Dibujar aristas
-        for (Vertex<String> vertex : graph.getVertices()) {
+        for (int i = 0; i < graph.getVertices().size(); i++) {
+            Vertex<String> vertex = graph.getVertices().get(i);
             double startX = vertex.getX();
             double startY = vertex.getY();
 
-            for (Map.Entry<Vertex<String>, Double> entry : vertex.getAdyacentes()) {
-                Vertex<String> adjacentVertex = entry.getKey();
-                double endX = adjacentVertex.getX();
-                double endY = adjacentVertex.getY();
+            for (int j = 0; j < graph.getVertices().size(); j++) {
+                List<Edge<String>> edges = graph.getAdjacencyMatrix()[i][j];
+                if (edges != null) {
+                    for (Edge<String> edge : edges) {
+                        Vertex<String> adjacentVertex = edge.getDestination();
+                        double endX = adjacentVertex.getX();
+                        double endY = adjacentVertex.getY();
 
-                Line edgeLine = new Line(startX, startY, endX, endY);
-                edgeLine.setStroke(Color.RED);
-                edgeLine.setStrokeWidth(2);
-                pane.getChildren().add(edgeLine);
-                // Calcular las coordenadas medias
-                double midX = (startX + endX) / 2;
-                double midY = (startY + endY) / 2;
+                        Line edgeLine = new Line(startX, startY, endX, endY);
+                        edgeLine.setStroke(Color.RED);
+                        edgeLine.setStrokeWidth(2);
+                        pane.getChildren().add(edgeLine);
 
-                // Obtener el peso del edge
-                double weight = entry.getValue();
-                DecimalFormat decimalFormat = new DecimalFormat("#.##");
-                String roundedNumber = decimalFormat.format(weight);
+                        // Calcular las coordenadas medias
+                        double midX = (startX + endX) / 2;
+                        double midY = (startY + endY) / 2;
 
+                        // Obtener el peso del edge
+                        double weight = edge.getWeight();
+                        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+                        String roundedNumber = decimalFormat.format(weight);
 
-                // Crear el texto con el peso en las coordenadas medias
-                Text edgeText = new Text(roundedNumber);
-                edgeText.setFont(Font.font("Arial", FontWeight.BOLD, 10));
-                edgeText.setFill(Color.BLACK);
-                edgeText.setX(midX - 10);  // Ajusta la posición del texto horizontalmente
-                edgeText.setY(midY);       // Ajusta la posición del texto verticalmente
-                pane.getChildren().add(edgeText);
+                        // Crear el texto con el peso en las coordenadas medias
+                        Text edgeText = new Text(String.valueOf(roundedNumber));
+                        edgeText.setFont(Font.font("Arial", FontWeight.BOLD, 10));
+                        edgeText.setFill(Color.BLACK);
+                        edgeText.setX(midX - 10);  // Ajusta la posición del texto horizontalmente
+                        edgeText.setY(midY);       // Ajusta la posición del texto verticalmente
+                        pane.getChildren().add(edgeText);
+                    }
+                }
             }
         }
     }
@@ -223,9 +223,9 @@ public class Controller implements Initializable {
             BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] atributs = line.split(",");
-                Vertex<String>  vertex1= graph.findVertex(atributs[0]);
-                Vertex<String>  vertex2= graph.findVertex(atributs[1]);
+                String[] atributs = line.split(" ");
+                Vertex<String>  vertex1= graph.searchVertex(atributs[0]);
+                Vertex<String>  vertex2= graph.searchVertex(atributs[1]);
 
                 graph.addEdge(vertex1,vertex2,Double.parseDouble(atributs[2]));
 
@@ -256,26 +256,40 @@ public class Controller implements Initializable {
     }
     public void writeDataEdges(String archivo) {
         File file = new File(archivo);
-        try {
-            FileOutputStream fos = new FileOutputStream(file);
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fos));
+        try (FileOutputStream fos = new FileOutputStream(file);
+             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fos))) {
 
-            for (Vertex<String> vertex : graph.getVertices()) {
-                for (Map.Entry<Vertex<String>, Double> entry : vertex.getAdyacentes()) {
-                    Vertex<String> neighborVertex = entry.getKey();
-                    Double weight = entry.getValue();
+            for (int i = 0; i < graph.getVertices().size(); i++) {
+                Vertex<String> vertex = graph.getVertices().get(i);
+                for (int j = 0; j < graph.getVertices().size(); j++) {
+                    List<Edge<String>> edges = graph.getAdjacencyMatrix()[i][j];
+                    if (edges != null) {
+                        for (Edge<String> edge : edges) {
+                            Vertex<String> neighborVertex = edge.getDestination();
+                            double weight = edge.getWeight();
 
-                    String line = vertex.getDato() + " " + neighborVertex.getDato() + " " + weight;
-                    writer.write(line);
-                    writer.newLine();
+                            String line = vertex.getDato() + " " + neighborVertex.getDato() + " " + weight;
+                            writer.write(line);
+                            writer.newLine();
+                        }
+                    }
                 }
             }
 
-            writer.close();
-            fos.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void concurrence(ActionEvent actionEvent) {
+
+        if(!concurrence.getText().isEmpty()){
+            graph.multiplyWeights((1/Double.parseDouble(concurrence.getText())));
+        }
+    }
+
+    public void selectedTraffic(ActionEvent actionEvent) {
+
     }
 
 

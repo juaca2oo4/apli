@@ -6,12 +6,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class RemoveConnection {
-
+public class STraffic {
     @FXML
     private Button cancelBTN;
 
@@ -22,13 +20,7 @@ public class RemoveConnection {
     private TextField fromNodeTF;
 
     @FXML
-    private Label label1;
-
-    @FXML
     private TextField toNodeTF;
-
-    @FXML
-    private TextField weightFT;
 
     @FXML
     void cancelA(ActionEvent event) {
@@ -41,38 +33,34 @@ public class RemoveConnection {
     @FXML
     void continueA(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        String from="",to="";
-        if(fromNodeTF.getText().isEmpty()) {
+        String from = fromNodeTF.getText();
+        String to = toNodeTF.getText();
+
+        if (from.isEmpty()) {
             alert.setTitle("Error!");
-            alert.setHeaderText("Please complete de field 'From node:'");
+            alert.setHeaderText("Please complete the 'From node' field.");
             alert.showAndWait();
-        } else if(toNodeTF.getText().isEmpty()) {
+        } else if (to.isEmpty()) {
             alert.setTitle("Error!");
-            alert.setHeaderText("Please complete de field 'To node:'");
+            alert.setHeaderText("Please complete the 'To node' field.");
             alert.showAndWait();
-        }else {
-            try {
-                from=fromNodeTF.getText();
-            }catch (NumberFormatException er){
+        } else {
+            Vertex<String> v1 = GraphMatriz.getInstance().searchVertex(from);
+            Vertex<String> v2 = GraphMatriz.getInstance().searchVertex(to);
+
+            if (v1 == null) {
                 alert.setTitle("Error!");
-                alert.setHeaderText("Invalid input of 'From node:'");
+                alert.setHeaderText("Invalid 'From node'. Node not found.");
                 alert.showAndWait();
-            }
-            try {
-                to=toNodeTF.getText();
-            }catch (NumberFormatException er){
+            } else if (v2 == null) {
                 alert.setTitle("Error!");
-                alert.setHeaderText("Invalid input of 'To node:'");
+                alert.setHeaderText("Invalid 'To node'. Node not found.");
                 alert.showAndWait();
+            } else {
             }
-            Vertex v1= GraphMatriz.getInstance().searchVertex(from);
-            Vertex v2= GraphMatriz.getInstance().searchVertex(to);
-            GraphMatriz.getInstance().remEdge(v1,v2);
-            GraphMatriz.getInstance().remEdge(v2,v1);
         }
+
         fromNodeTF.setText("");
         toNodeTF.setText("");
-        weightFT.setText("");
     }
-
 }

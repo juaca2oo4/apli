@@ -1,6 +1,6 @@
 package com.example.redes.controller;
 
-import com.example.redes.model.Graph;
+import com.example.redes.model.GraphMatriz;
 import com.example.redes.model.Vertex;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -48,8 +48,8 @@ public class RemoveServer {
                 alert.setHeaderText("Invalid input of 'From node:'");
                 alert.showAndWait();
             }
-            Vertex v1= Graph.getInstance().findVertex(node);
-            Graph.getInstance().remVertex(v1);
+            Vertex v1= GraphMatriz.getInstance().searchVertex(node);
+            GraphMatriz.getInstance().remVertex(v1);
 
         }
         NodeTF.setText("");
