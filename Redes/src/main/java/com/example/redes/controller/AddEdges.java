@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 
 public class AddEdges {
 
+    public TextField Distance;
     @FXML
     private Button cancelBTN;
 
@@ -44,6 +45,7 @@ public class AddEdges {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         String from = fromNodeTF.getText();
         String to = toNodeTF.getText();
+        String dis = Distance.getText();
 
         if (from.isEmpty()) {
             alert.setTitle("Error!");
@@ -53,7 +55,11 @@ public class AddEdges {
             alert.setTitle("Error!");
             alert.setHeaderText("Please complete the 'To node' field.");
             alert.showAndWait();
-        } else {
+        }  else if (dis.isEmpty()) {
+            alert.setTitle("Error!");
+            alert.setHeaderText("Please complete the 'Dis' field.");
+            alert.showAndWait();
+        }else {
             Vertex<String> v1 = GraphMatriz.getInstance().searchVertex(from);
             Vertex<String> v2 = GraphMatriz.getInstance().searchVertex(to);
 
@@ -66,15 +72,14 @@ public class AddEdges {
                 alert.setHeaderText("Invalid 'To node'. Node not found.");
                 alert.showAndWait();
             } else {
-                double weight = calculateWeight(v1, v2);
-                System.out.println(weight);
-                double weightFinal= Math.min(v1.getSpeed(),v2.getSpeed())*(1-(weight/299792));
+                double weightFinal= Math.min(v1.getSpeed(),v2.getSpeed())*(1-(Double.parseDouble(dis)/299792));
                 GraphMatriz.getInstance().addEdge(v1, v2, weightFinal);
             }
         }
 
         fromNodeTF.setText("");
         toNodeTF.setText("");
+        Distance.setText("");
     }
     //8,246 alto
     //7,244 ancho

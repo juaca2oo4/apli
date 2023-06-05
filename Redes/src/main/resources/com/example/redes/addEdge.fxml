@@ -62,7 +62,15 @@
                                     </TextField>
                                  </children>
                               </VBox>
-                              <VBox prefHeight="200.0" prefWidth="100.0" />
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Label text="Distance" textFill="#868686">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="Distance" promptText="Node number" style="-fx-background-color: #E5E5E5;" />
+                                 </children></VBox>
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                  <children>
                                     <Button fx:id="cancelBTN" mnemonicParsing="false" onAction="#cancelA" style="-fx-background-color: #B7B7B7; -fx-background-radius: 7; -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1),10.0,0.0,0.0,10.0);" text="Cancel" textFill="WHITE" />
