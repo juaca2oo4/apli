@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="400.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.redes.controller.CheckDataTransfer">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="400.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.redes.controller.CheckDataTransfer">
    <children>
       <BorderPane layoutX="113.0" layoutY="72.0" prefHeight="300.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
@@ -34,7 +39,7 @@
                               </HBox>
                               <HBox prefHeight="100.0" prefWidth="80">
                                  <children>
-                                    <Label alignment="CENTER" text="SPEED:" textFill="#868686" />
+                                    <Label alignment="CENTER" text="TIME:" textFill="#868686" />
                                     <Label fx:id="speed" alignment="CENTER" text="" textFill="#868686" />
                                  </children>
                                  <VBox.margin>
@@ -70,8 +75,8 @@
                               </VBox>
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10">
                                  <children>
-                                    <Button fx:id="confirm" mnemonicParsing="false" text="Confirm" textFill="#868686" onAction="#onCheckDataTransfer"/>
-                                    <Button mnemonicParsing="false" text="Close" textFill="#868686" onAction="#onClose"/>
+                                    <Button fx:id="confirm" mnemonicParsing="false" onAction="#onCheckDataTransfer" text="Confirm" textFill="#868686" />
+                                    <Button mnemonicParsing="false" onAction="#onClose" text="Close" textFill="#868686" />
                                  </children>
                                  <VBox.margin>
                                     <Insets left="10.0" right="10.0" />

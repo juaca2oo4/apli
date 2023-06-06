@@ -201,7 +201,7 @@ public class Controller implements Initializable {
                         String roundedNumber = decimalFormat.format(weight);
 
                         // Crear el texto con el peso en las coordenadas medias
-                        Text edgeText = new Text(String.valueOf(roundedNumber));
+                        Text edgeText = new Text(String.valueOf(roundedNumber)+"gb/s");
                         edgeText.setFont(Font.font("Arial", FontWeight.BOLD, 10));
                         edgeText.setFill(Color.BLACK);
                         edgeText.setX(midX - 10);  // Ajusta la posición del texto horizontalmente
