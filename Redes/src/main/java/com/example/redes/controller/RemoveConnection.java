@@ -72,7 +72,6 @@ public class RemoveConnection {
         }
         fromNodeTF.setText("");
         toNodeTF.setText("");
-        weightFT.setText("");
     }
 
 }
