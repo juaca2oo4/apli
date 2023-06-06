@@ -8,7 +8,7 @@ public class GraphMatriz<T> {
     private List<Edge<T>>[][] adjacencyMatrix;
     private List<Vertex<T>> vertices;
 
-    private static final GraphMatriz<String> instance = new GraphMatriz<String>(50);
+    public static  GraphMatriz<String> instance = new GraphMatriz<String>(0);
 
     public GraphMatriz(int numVertices) {
         adjacencyMatrix = new ArrayList[numVertices][numVertices];

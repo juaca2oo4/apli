@@ -134,6 +134,7 @@ public class Controller implements Initializable {
 
     public void loadGraph(){
         graph = new GraphMatriz<>(0);
+        GraphMatriz.instance=graph;
         addDataVertex("src\\main\\java\\com\\example\\redes\\Json\\dataVertex.txt");
         addDataEdgeList("src\\main\\java\\com\\example\\redes\\Json\\dataEdges.txt");
         dselect();
