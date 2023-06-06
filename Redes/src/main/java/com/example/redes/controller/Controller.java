@@ -210,6 +210,7 @@ public class Controller implements Initializable {
                 String[] atributs = line.split(" ");
                 Vertex<String>  vertex= new Vertex<>(atributs[0],Double.parseDouble(atributs[1]),Double.parseDouble(atributs[2]),Double.parseDouble(atributs[3]));
                 graph.addVertex(vertex);
+                nodesCounter++;
             }
             fis.close();
         } catch (IOException e) {
