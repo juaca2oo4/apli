@@ -173,14 +173,27 @@ public class Controller implements Initializable {
                         double endX = adjacentVertex.getX();
                         double endY = adjacentVertex.getY();
 
-                        Line edgeLine = new Line(startX, startY, endX, endY);
+                        // Calcular la dirección y la longitud de la línea
+                        double dx = endX - startX;
+                        double dy = endY - startY;
+                        double length = Math.sqrt(dx * dx + dy * dy);
+                        dx /= length;
+                        dy /= length;
+
+                        // Calcular las coordenadas de inicio y fin ajustadas
+                        double startAdjustedX = startX + dx * 10; // 10 es el radio del círculo
+                        double startAdjustedY = startY + dy * 10;
+                        double endAdjustedX = endX - dx * 10;
+                        double endAdjustedY = endY - dy * 10;
+
+                        Line edgeLine = new Line(startAdjustedX, startAdjustedY, endAdjustedX, endAdjustedY);
                         edgeLine.setStroke(Color.RED);
                         edgeLine.setStrokeWidth(2);
                         pane.getChildren().add(edgeLine);
 
                         // Calcular las coordenadas medias
-                        double midX = (startX + endX) / 2;
-                        double midY = (startY + endY) / 2;
+                        double midX = (startAdjustedX + endAdjustedX) / 2;
+                        double midY = (startAdjustedY + endAdjustedY) / 2;
 
                         // Obtener el peso del edge
                         double weight = edge.getWeight();
@@ -199,8 +212,6 @@ public class Controller implements Initializable {
             }
         }
     }
-
-
     public void addDataVertex(String archivo) {
         File file = new File(archivo);
         try {
